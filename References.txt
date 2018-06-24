@@ -1,0 +1,10 @@
+We used the following references:
+
+Construction of the directional antenna:
+http://wwww.instructables.com/id/Easy-to-Build-WIFI-24GHz-Yagi-Antenna/
+
+Setting up the Raspberry Pi as an access point: 
+https://learn.adafruit.com/setting-up-a-raspberry-pi-as-a-wifi-access-point/overview
+
+
+
