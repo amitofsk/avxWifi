@@ -1,4 +1,4 @@
-We used the following references:
+We used the following references at the hackathon:
 
 Construction of the directional antenna:
 http://wwww.instructables.com/id/Easy-to-Build-WIFI-24GHz-Yagi-Antenna/
@@ -6,5 +6,19 @@ http://wwww.instructables.com/id/Easy-to-Build-WIFI-24GHz-Yagi-Antenna/
 Setting up the Raspberry Pi as an access point: 
 https://learn.adafruit.com/setting-up-a-raspberry-pi-as-a-wifi-access-point/overview
 
+We used the following references after the hackathon:
 
+Info on Detroit internet usage
+https://motherboard.vice.com/en_us/article/kz3xyz/detroit-mesh-network
 
+Driver for the Amazon Basics wifi adapter with the RPi:
+https://www.raspberrypi.org/forums/viewtopic.php?t=103989
+
+Debugging the RPi Zero access point:
+https://www.raspberrypi.org/forums/viewtopic.php?t=139866
+
+EZNEC for simulating antennas:
+https://www.eznec.com/
+
+easyeda for laying out PCBs:
+https://easyeda.com/ 

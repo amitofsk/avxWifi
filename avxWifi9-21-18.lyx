@@ -1,0 +1,948 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 12
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 1in
+\topmargin 1in
+\rightmargin 1in
+\bottommargin 1in
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Subsection*
+\noindent
+Notes on avxWifi 9-21-18
+\end_layout
+
+\begin_layout Subsection*
+\noindent
+Supplies
+\end_layout
+
+\begin_layout Itemize
+\noindent
+Raspberry Pi Zero W, https://www.adafruit.com/product/3400
+\end_layout
+
+\begin_layout Itemize
+\noindent
+Micro USB-B to USB-A Connector, 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\noindent
+I think this is the one I'm using, https://www.adafruit.com/product/2910
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+\noindent
+microSD Card 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\noindent
+I'm using a 64GB card.
+ You don't need one this big, but I wouldn't go below 16GB.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+\noindent
+Power supply for the RPi Zero W , https://www.adafruit.com/product/1995
+\end_layout
+
+\begin_layout Itemize
+\noindent
+USB Hub
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\noindent
+I'm using a powered one.
+ Maybe I should switch to an unpowered one?
+\end_layout
+
+\begin_layout Itemize
+\noindent
+https://www.newegg.com/Product/Product.aspx?Item=N82E16817801107
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+\noindent
+HDMI mini cable 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\noindent
+or a regular HDMI cable and an adapter to mini HDMI.
+ 
+\end_layout
+
+\begin_layout Itemize
+\noindent
+You want HDMI mini, not micro.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+\noindent
+Amazon Basics Wifi adapter with detachable antenna 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\noindent
+https://www.amazon.com/AmazonBasics-Wi-Fi-11N-USB-Adapter/dp/B071Y6Y83W
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+\noindent
+Small piece of coax cable 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\noindent
+I found this in my lab...
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+\noindent
+Coax connector
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\noindent
+Digikey part number CONSMA007-R58-ND
+\end_layout
+
+\begin_layout Itemize
+\noindent
+Male cable end crimp RG58
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+\noindent
+USB keyboard and Mouse
+\end_layout
+
+\begin_layout Itemize
+\noindent
+HDMI monitor
+\end_layout
+
+\begin_layout Itemize
+\noindent
+Custom PCB
+\end_layout
+
+\begin_layout Itemize
+\noindent
+Soldering iron and small amount of solder.
+ 
+\end_layout
+
+\begin_layout Itemize
+\noindent
+4 pin header, digikey part number 609-2670-ND.
+ This part is optional, it is for the impedance matching circuit near the
+ antenna.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+\noindent
+Intro
+\end_layout
+
+\begin_layout Standard
+\noindent
+According to https://motherboard.vice.com/en_us/article/kz3xyz/detroit-mesh-networ
+k , 40% of Detroit residents lack internet access.
+ We're solving this with Raspberry Pi Zero W access points and custom made
+ directional antennas.
+ These notes are very rough.
+ 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Our github page is at: https://github.com/amitofsk/avxWifi 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Graphics
+	filename pics/logo2.png
+	lyxscale 10
+	scale 10
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+\noindent
+Set up the Raspberry Pi Zero W
+\end_layout
+
+\begin_layout Standard
+\noindent
+I'm using Raspbian Stretch, Linux 4.14.52.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Update the OS...
+ Not sure if all of these steps are needed...
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\family typewriter
+sudo apt-get upgrade
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\family typewriter
+sudo apt-get dist-upgrade
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\family typewriter
+sudo apt-get clean
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\family typewriter
+sudo apt-get update
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\family typewriter
+sudo apt-get install vim
+\end_layout
+
+\begin_layout Subsection*
+\noindent
+Antenna Driver 
+\end_layout
+
+\begin_layout Standard
+\noindent
+I'm using an Amazon Basics brand wifi adapter with a detachable antenna.
+ When I bought this adapter.
+ I didn't realize that the antenna could just unscrew.
+ I was even more pleasantly surprised to find the mating connector lying
+ around my lab.
+ 
+\end_layout
+
+\begin_layout Standard
+\noindent
+The problem with this adapater, though, is that Raspbian doesn't recognize
+ it.
+ I looked in dmesg, and it said the adapter was Realtek, serial number 70F11C053
+1F8, idvendor=0dba, idProduct=818b.
+ According to https://www.raspberrypi.org/forums/viewtopic.php?t=103989 , the
+ chip in it requires the RTL8192EU driver, and this driver is available
+ online.
+ I downloaded and installed it, and it worked fine! Make sure the antenna
+ is plugged in during the install process.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\family typewriter
+sudo wget http://fars-robotics.net/install-wifi -O /usr/bin/install-wifi
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\family typewriter
+sudo chmod +x /usr/bin/install-wifi 
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\family typewriter
+sudo install-wifi -h 
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\family typewriter
+sudo install-wifi 
+\end_layout
+
+\begin_layout Subsection*
+\noindent
+Rasperry Pi Zero W as an Access Point
+\end_layout
+
+\begin_layout Standard
+\noindent
+The general strategy is to follow the tutorial on the Adafruit page.
+ https://learn.adafruit.com/setting-up-a-raspberry-pi-as-a-wifi-access-point/insta
+ll-software However, you need to make some additional changes to config
+ files even beyond what is discussed in that tutorial.
+ The post from 9-11-16 at
+\begin_inset Newline newline
+\end_inset
+
+ https://www.raspberrypi.org/forums/viewtopic.php?t=139866 was also useful.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+The Adafruit tutorial assumes you have a wired network connection eth0 and
+ are setting up a wireless access point through wlan0.
+ In our case, we have two wireless connections.
+ The internal wifi device, wlan0, will be the access point we are setting
+ up for our local network.
+ The external wifi adapter, wlan1, will connect to the established network
+ (my router).
+ When following the Adafruit tutorial, we'll replace eth0 by wlan1.
+ 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Following the adafruit page, we have to alter the following seven config
+ files.
+ 
+\end_layout
+
+\begin_layout Itemize
+\noindent
+/etc/dhcp/dhcpd.conf
+\end_layout
+
+\begin_layout Itemize
+\noindent
+/etc/default/isc-dhcp-server
+\end_layout
+
+\begin_layout Itemize
+\noindent
+/etc/network/interfaces
+\end_layout
+
+\begin_layout Itemize
+\noindent
+/etc/hostapd/hostapd.conf
+\end_layout
+
+\begin_layout Itemize
+\noindent
+/etc/default/hostapd
+\end_layout
+
+\begin_layout Itemize
+\noindent
+/etc/init.d/hostapd
+\end_layout
+
+\begin_layout Itemize
+\noindent
+/etc/sysctl.conf
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+My strategy is to copy the original config file so I have a backup I can
+ go back to.
+ If things don't work, you can copy all seven of these original files back
+ into place and reboot.
+ 
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\family typewriter
+sudo cp /etc/dhcp/dhcpd.conf /etc/dhcpd/dhcpd.conf.orig
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\family typewriter
+sudo cp /etc/default/isc-dhcp-server /etc/default/isc-dhcp-server.orig
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\family typewriter
+sudo cp /etc/network/interfaces /etc/network/interfaces.orig
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\family typewriter
+sudo cp /etc/hostapd/hostapd.conf /etc/hostapd/hostapd.conf.orig
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\family typewriter
+sudo cp /etc/default/hostapd /etc/default/hostapd.orig
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\family typewriter
+sudo cp /etc/init.d/hostapd /etc/init.d/hostapd.orig
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\family typewriter
+sudo cp /etc/sysctl.conf /etc/sysctl.conf.orig
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+I've attached my new versions of these files.
+ You need to modify the file named interfaces.
+ Replace AAA with the name of the wifi network you will be connecting to,
+ and replace BBB with its password.
+ The file hostapd.conf contains the name of the network you will be setting
+ up.
+ Following the adafruit tutorial, I'm using Pi_AP as the name of the network
+ and Raspberry as the password.
+ 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Once you've modified the interfaces file, copy these files into place.
+ I assume here that you are in a directory containing the updated files.
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\family typewriter
+sudo cp dhcpd.conf /etc/dhcp/dhcpd.conf
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\family typewriter
+sudo cp isc-dhcp-server /etc/default/isc-dhcp-server
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\family typewriter
+sudo cp interfaces /etc/network/interfaces
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\family typewriter
+sudo cp hostapd.conf /etc/hostapd/hostapd.conf
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\family typewriter
+sudo cp default_hostapd /etc/default/hostapd
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\family typewriter
+sudo cp initd_hostapd /etc/init.d/hostapd
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\family typewriter
+sudo cp sysctl.conf /etc/sysctl.conf
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Next, continue following along the adafruit instructions.
+ We're replacing eth0 in these instructions with wlan1.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\family typewriter
+sudo ifconfig wlan0 192.168.42.1
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\family typewriter
+sudo sh -c "echo 1 > /proc/sys/net/ipv4/ip_forward"
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\family typewriter
+sudo iptables -t nat -A POSTROUTING -o wlan1 -j MASQUERADE
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\family typewriter
+sudo iptables -A FORWARD -i wlan1-o wlan0 -m state --state RELATED,ESTABLISHED
+ -j ACCEPT 
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\family typewriter
+sudo iptables -A FORWARD -i wlan0 -o wlan1 -j ACCEPT
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\family typewriter
+sudo sh -c "iptables-save > /etc/iptables/rules.v4"
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\family typewriter
+sudo mv /usr/share/dbus-1/system-services/fi.epitest.hostap.WPASupplicant.service
+ ~/
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\family typewriter
+sudo service hostapd start
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\family typewriter
+sudo service isc-dhcp-server start 
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\family typewriter
+sudo update-rc.d hostapd enable 
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\family typewriter
+sudo update-rc.d isc-dhcp-server enable 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+When you are done, reboot.
+\end_layout
+
+\begin_layout Subsection*
+\noindent
+Making and Using a Custom Antenna
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Graphics
+	filename pics/twoAntennas.png
+	lyxscale 25
+	scale 23
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+\noindent
+Paperclip antenna
+\end_layout
+
+\begin_layout Standard
+\noindent
+Our first attempt at making a directional antenna was to follow the tutorial
+ at:
+\end_layout
+
+\begin_layout Standard
+\noindent
+https://www.instructables.com/id/Easy-to-Build-WIFI-24GHz-Yagi-Antenna/
+\end_layout
+
+\begin_layout Standard
+\noindent
+Xavier worked on this step at the hackathon.
+ Our antenna is shown in the figure above on the left.
+ 
+\end_layout
+
+\begin_layout Subsubsection*
+\noindent
+Antenna Template
+\end_layout
+
+\begin_layout Standard
+\noindent
+The difficulty with that design is that it is hard to properly align the
+ antenna elements, and their alignment is important.
+ So, we decided to 3D print a template to make antenna construction easier.
+ Xavier worked on this step at the hackathon too.
+ The antenna template is the green object on the left part of the figure.
+ 
+\end_layout
+
+\begin_layout Subsubsection*
+\noindent
+Simulation
+\end_layout
+
+\begin_layout Standard
+\noindent
+I decided to simulate a four element Yagi antenna using EZNEC.
+ I used the Demo version of EZNEC available at https://www.eznec.com/ .
+ The antenna is sending a signal to the -z direction (down in the figure),
+ so it is plotted at a weird angle.
+ It assumes that the antenna is communicating with another antenna below
+ it.
+ According to the simulation, this is a very directional antenna.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Graphics
+	filename pics/antenna10.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+\noindent
+PCB antenna
+\end_layout
+
+\begin_layout Standard
+\noindent
+Next, I used https://easyeda.com/ to design a custom PCB containing an antenna.
+ The antenna is shown in the right part of the figure above, labeled Antenna
+ Version 2.
+ 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+The figure below shows the PCB layout.
+ The part in the upper right is the antenna, and the arrow in yellow shows
+ the direction the signal is sent from the antenna.
+ We actually don't need the part in the lower right.
+ At the hackathon, we had to crack open a wifi adapter to connect in our
+ antenna.
+ I included this section since I thought we might need to do the same again
+ to solder in a wifi adapter.
+ However, an antenna can just screw into the amazon basic wifi adapter I
+ bought, so this part is no longer needed.
+ I had some ideas for how to address the impedance matching issue.
+ I included the part in the upper right for that reason, but I haven't tried
+ that out yet.
+ 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+What is the impedance matching issue? If length of any connecting wires
+ is longer than, or about as long, as the wavelength of the signal involved,
+ those wires act as a transmission line.
+ A wifi signal has frequency 2.4GHz which corresponds to a wavelength of
+ 
+\begin_inset Formula $\lambda=\frac{3\cdot10^{8}}{f}=12.5$
+\end_inset
+
+cm.
+ Our connecting wires are a few centimeters long, so this may be an issue.
+ If the connecting wires act as a transmission line, the voltage along the
+ wires is not constant, and it varies along the length of the line.
+ If the impedance of the load is not matched to the impedance of the transmissio
+n line, oscillations will develop in the line, and energy will be stored
+ in the line instead of transmitted to or from the antenna.
+ Ideally, the impedance of the antenna should be matched to the impedance
+ of the transmission line.
+ I haven't even tried to address this issue yet.
+ 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+I haven't had a chance to test this antenna much yet.
+ However, from a very quick test, my PCB antenna appears to be stronger
+ than the internal wifi antenna in the Raspberry Pi but not quite as good
+ as the Amazon antenna that the adapter came with.
+ The PCB antenna is supposed to be directional.
+ From my very quick tests, I couldn't tell if it actually was directional
+ or not.
+ 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Graphics
+	filename pics/PCB_try2.png
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
